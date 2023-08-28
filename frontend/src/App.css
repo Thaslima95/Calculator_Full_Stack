@@ -1,0 +1,71 @@
+body {
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  flex-wrap: wrap;
+  font-size: 32px;
+  color: hsl(0, 0%, 100%);
+}
+.maincontainer {
+  width: 353px;
+  height: 380px;
+  border: 2px solid white;
+  padding-top: 60px;
+  padding-right: 10px;
+  padding-left: 10px;
+}
+small {
+  font-size: 10px;
+  margin-top: 5px;
+  position: absolute;
+}
+.squareroot {
+  position: relative;
+}
+#onebyx small {
+  font-size: 18px;
+  position: static;
+}
+.resultcontainer {
+  width: 100%;
+  height: 100px;
+  background-color: white;
+  border: 1px solid black;
+  color: black;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  font-size: 40px;
+  font-weight: bold;
+  flex-direction: column;
+}
+.keyscontainer {
+  width: 100%;
+  height: 380px;
+  background-color: white;
+  border: 1px solid black;
+}
+.grid-container {
+  display: grid;
+  grid-template-columns: 80px 80px 80px 80px;
+  gap: 5px;
+  margin-top: 20px;
+  margin-left: 5px;
+}
+.grid-item {
+  width: 80px;
+  height: 55px;
+  background-color: white;
+  /* border-radius: 5px; */
+  font-size: 25px;
+  box-shadow: 0px 1.5px hsl(28, 16%, 65%);
+  border: none;
+  cursor: pointer;
+}
+#equal {
+  background-color: #1c6faf;
+  color: white;
+  border-radius: 5px;
+  box-shadow: 0px 1.5px #437ba6;
+}
