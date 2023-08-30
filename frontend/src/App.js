@@ -5,11 +5,15 @@ import HistoryComponent from './HistoryComponent';
 import Calculator from './Calculator';
 function App() {
   return (
-<div className="maincontainer">
+<>
+<div className="App">
         {/* <HistoryComponent/> */}
         {/* <Calc/> */}
         <Calculator/>
         </div>
+        </>
+        
+        
   );
 }
 
