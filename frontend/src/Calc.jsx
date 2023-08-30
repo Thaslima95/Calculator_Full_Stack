@@ -30,6 +30,15 @@ const reducer = (state, action) => {
     localStorage.setItem("history", JSON.stringify(getvalues));
     return state;
   };
+  const dataDisplay = async (history) => {
+    try {
+      const res = await axios.post("/create", { Calculations: history });
+      console.log(res);
+      console.log(res.data);
+    } catch (err) {
+      console.log("error", err);
+    }
+  };
   const evaluate = (state) => {
     let previous = parseFloat(state.previousvalue);
     let current = parseFloat(state.firstValue);
@@ -117,7 +126,15 @@ const reducer = (state, action) => {
             action.payload +
             evaluate(state)
         ),
+        callapi: dataDisplay(
+          state.previousvalue +
+            state.operation +
+            state.firstValue +
+            action.payload +
+            evaluate(state)
+        ),
       };
+
     case "Clear":
       return {};
     case "Square":
@@ -151,13 +168,29 @@ const reducer = (state, action) => {
   }
 };
 export default function Calc() {
-  const [{ firstValue = "0", previousvalue, operation, history }, dispatch] =
-    useReducer(reducer, {});
+  const [
+    {
+      firstValue = "0",
+      previousvalue,
+      operation,
+      history,
+      final,
+      callapi = false,
+    },
+    dispatch,
+  ] = useReducer(reducer, {});
   const [historydata, setHistory] = useState([]);
   const [calcdata, setCalcdata] = useState([]);
+  history && console.log(history);
+  final && console.log(final);
+  useEffect(() => {
+    console.log(history);
+    console.log("api call");
+  }, [history]);
   useEffect(() => {
     history && setHistory(history);
-  }, []);
+    console.log("hi");
+  }, [history]);
 
   // useEffect(() => {
   //   console.log(localStorage.getItem("history"));
@@ -195,16 +228,16 @@ export default function Calc() {
     console.log(values1.current.textContent);
   }
 
-  // useEffect(() => {
-  //   console.log("useEffect");
-  //   const fetchHistory = async () => {
-  //     const res = await axios.get(`/get`);
-  //     console.log(res);
-  //     console.log(res.data);
-  //     setCalcdata(res.data);
-  //   };
-  //   fetchHistory();
-  // }, []);
+  useEffect(() => {
+    console.log("useEffect");
+    const fetchHistory = async () => {
+      const res = await axios.get(`/get`);
+      console.log(res);
+      console.log(res.data);
+      setCalcdata(res.data);
+    };
+    fetchHistory();
+  }, [history]);
 
   return (
     <div className="maincontainer">
@@ -401,7 +434,9 @@ export default function Calc() {
             .
           </button>
           <button
-            onClick={() => dispatch({ type: "Evaluate", payload: "=" })}
+            onClick={() => {
+              dispatch({ type: "Evaluate", payload: "=" });
+            }}
             name="euqal"
             className="grid-item"
             id="equal"
@@ -424,8 +459,8 @@ export default function Calc() {
             ref={descriptionElementRef}
             tabIndex={-1}
           >
-            {/* {historydata &&
-              historydata.map((e) => <div className="">{e.Calculations}</div>)} */}
+            {calcdata &&
+              calcdata.map((e) => <div className="">{e.Calculations}</div>)}
           </DialogContentText>
         </DialogContent>
         <DialogActions>

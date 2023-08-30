@@ -8,8 +8,8 @@ function App() {
 <>
 <div className="App">
         {/* <HistoryComponent/> */}
-        {/* <Calc/> */}
-        <Calculator/>
+        <Calc/>
+        {/* <Calculator/> */}
         </div>
         </>
         
