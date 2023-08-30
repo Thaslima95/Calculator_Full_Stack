@@ -14,6 +14,7 @@ import { Button } from "@mui/material";
 import { DialogContentText } from "@mui/material";
 import { DialogContent } from "@mui/material";
 import { DialogActions } from "@mui/material";
+import axios from "axios";
 
 const reducer = (state, action) => {
   const sethistory = (state) => {
@@ -153,10 +154,15 @@ export default function Calc() {
   const [{ firstValue = "0", previousvalue, operation, history }, dispatch] =
     useReducer(reducer, {});
   const [historydata, setHistory] = useState([]);
+  const [calcdata, setCalcdata] = useState([]);
   useEffect(() => {
-    console.log(localStorage.getItem("history"));
-    setHistory(JSON.parse(localStorage.getItem("history")));
+    history && setHistory(history);
   }, []);
+
+  // useEffect(() => {
+  //   console.log(localStorage.getItem("history"));
+  //   setHistory(JSON.parse(localStorage.getItem("history")));
+  // }, []);
   console.log(historydata);
   const [open, setOpen] = React.useState(false);
   const [scroll, setScroll] = React.useState("paper");
@@ -189,10 +195,21 @@ export default function Calc() {
     console.log(values1.current.textContent);
   }
 
+  // useEffect(() => {
+  //   console.log("useEffect");
+  //   const fetchHistory = async () => {
+  //     const res = await axios.get(`/get`);
+  //     console.log(res);
+  //     console.log(res.data);
+  //     setCalcdata(res.data);
+  //   };
+  //   fetchHistory();
+  // }, []);
+
   return (
     <div className="maincontainer">
-      {historydata.map((e) => console.log(e.values))}
-      {console.log(localStorage.getItem("history"))}
+      {/* {historydata && historydata.map((e) => console.log(e.values))} */}
+      {historydata && console.log(historydata)}
       <div className="resultcontainer">
         {/* {historydata.map((e) => (
           <div className="">{e.values}</div>
@@ -407,9 +424,8 @@ export default function Calc() {
             ref={descriptionElementRef}
             tabIndex={-1}
           >
-            {historydata.map((e) => (
-              <div className="">{e.values}</div>
-            ))}
+            {/* {historydata &&
+              historydata.map((e) => <div className="">{e.Calculations}</div>)} */}
           </DialogContentText>
         </DialogContent>
         <DialogActions>
